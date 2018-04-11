@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.FileSystemGlobbing.Internal.PathSegments;
+using Microsoft.Rest.TransientFaultHandling;
+using TestForWork.Classes;
+using TestForWork.Func;
 
 namespace TestForWork.Controllers
 {
@@ -11,20 +15,27 @@ namespace TestForWork.Controllers
     {
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Window> Get()
         {
-            return new string[] { "value1", "value2" };
+
+            return OpenWindowGetter.GetListOfWindows();
         }
 
         // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{name}")]
+        public Window Get(string name)
         {
-            return "value";
+            var listofwind = OpenWindowGetter.GetListOfWindows();
+            var findedname = listofwind.First(a => a.Name == name);
+            if (findedname!=null)
+            {
+                return findedname;
+            }
+            throw new HttpRequestWithStatusException("Erorr 404  can't find name");
         }
 
         // POST api/values
-        [HttpPost]
+      /*  [HttpPost]
         public void Post([FromBody]string value)
         {
         }
@@ -39,6 +50,6 @@ namespace TestForWork.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-        }
+        }*/
     }
 }
