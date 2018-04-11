@@ -26,7 +26,7 @@ namespace TestForWork.Controllers
         public Window Get(string name)
         {
             var listofwind = OpenWindowGetter.GetListOfWindows();
-            var findedname = listofwind.First(a => a.Name == name);
+            var findedname = listofwind.FirstOrDefault(a => a.Name == name);
             if (findedname!=null)
             {
                 return findedname;
