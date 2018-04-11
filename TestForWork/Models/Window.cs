@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TestForWork.Classes
+namespace TestForWork.Models
 {
     public class Window
     {
